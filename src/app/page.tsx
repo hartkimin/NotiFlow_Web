@@ -23,7 +23,7 @@ export default function LandingPage() {
             로그인
           </Link>
           <Link
-            href="/login"
+            href="/orders"
             className={cn(
               buttonVariants({ variant: "default" }),
               "text-sm font-medium"
@@ -51,7 +51,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg">
-                    <Link href="/login">지금 바로 시작하기</Link>
+                    <Link href="/orders">지금 바로 시작하기</Link>
                   </Button>
                 </div>
               </div>

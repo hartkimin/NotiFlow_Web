@@ -11,11 +11,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [error, setError] = useState(
-    searchParams.get("error") === "deactivated"
-      ? "비활성화된 계정입니다."
-      : "",
-  );
+  const [error, setError] = useState(() => {
+    const errorParam = searchParams.get("error");
+    if (errorParam === "deactivated") return "비활성화된 계정입니다.";
+    if (errorParam === "no_profile") return "등록되지 않은 사용자입니다. 관리자에게 문의하세요.";
+    return "";
+  });
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -35,7 +36,7 @@ export function LoginForm() {
       setError("이메일 또는 비밀번호가 올바르지 않습니다.");
       setLoading(false);
     } else {
-      router.push("/");
+      router.push("/orders");
       router.refresh();
     }
   }

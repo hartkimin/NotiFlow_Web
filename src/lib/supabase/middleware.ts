@@ -30,10 +30,9 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Public paths that don't require auth
-  const publicPaths = ["/login"];
-  const isPublicPath = publicPaths.some((p) =>
-    request.nextUrl.pathname.startsWith(p),
-  );
+  const pathname = request.nextUrl.pathname;
+  const isPublicPath =
+    pathname === "/" || pathname.startsWith("/login");
 
   if (!user && !isPublicPath) {
     const url = request.nextUrl.clone();
@@ -41,14 +40,14 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirect logged-in users away from login page
-  if (user && isPublicPath) {
+  // Redirect logged-in users away from login page to dashboard
+  if (user && pathname.startsWith("/login")) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/orders";
     return NextResponse.redirect(url);
   }
 
-  // Check if user is active (via user_profiles)
+  // Check if user profile exists and is active (protected routes only)
   if (user && !isPublicPath) {
     const { data: profile } = await supabase
       .from("user_profiles")
@@ -56,12 +55,12 @@ export async function updateSession(request: NextRequest) {
       .eq("id", user.id)
       .single();
 
-    if (profile && !profile.is_active) {
-      // Deactivated user — sign out and redirect
+    if (!profile || !profile.is_active) {
+      // Missing or deactivated profile — sign out and redirect
       await supabase.auth.signOut();
       const url = request.nextUrl.clone();
       url.pathname = "/login";
-      url.searchParams.set("error", "deactivated");
+      url.searchParams.set("error", profile ? "deactivated" : "no_profile");
       return NextResponse.redirect(url);
     }
   }
