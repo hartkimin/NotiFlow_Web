@@ -1,8 +1,11 @@
+import { ShoppingCart, Package, Banknote, Receipt } from "lucide-react";
 import { getSalesReport } from "@/lib/queries/reports";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ReportFilters } from "@/components/report-filters";
 import { SalesChart } from "@/components/sales-chart";
+import { StatCard } from "@/components/stat-card";
+import { EmptyState } from "@/components/empty-state";
 
 interface Props {
   searchParams: Promise<{ period?: string }>;
@@ -30,30 +33,30 @@ export default async function ReportsPage({ searchParams }: Props) {
       {report ? (
         <>
           <div className="grid gap-4 sm:grid-cols-4">
-            <Card>
-              <CardContent className="pt-4">
-                <p className="text-sm text-muted-foreground">주문 수</p>
-                <p className="text-2xl font-bold">{report.summary.total_orders}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-4">
-                <p className="text-sm text-muted-foreground">품목 수</p>
-                <p className="text-2xl font-bold">{report.summary.total_items}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-4">
-                <p className="text-sm text-muted-foreground">공급가액</p>
-                <p className="text-2xl font-bold">{report.summary.total_supply.toLocaleString("ko-KR")}원</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-4">
-                <p className="text-sm text-muted-foreground">합계</p>
-                <p className="text-2xl font-bold">{report.summary.total_amount.toLocaleString("ko-KR")}원</p>
-              </CardContent>
-            </Card>
+            <StatCard
+              title="주문 수"
+              value={report.summary.total_orders}
+              icon={ShoppingCart}
+              color="blue"
+            />
+            <StatCard
+              title="품목 수"
+              value={report.summary.total_items}
+              icon={Package}
+              color="green"
+            />
+            <StatCard
+              title="공급가액"
+              value={`${report.summary.total_supply.toLocaleString("ko-KR")}원`}
+              icon={Banknote}
+              color="amber"
+            />
+            <StatCard
+              title="합계"
+              value={`${report.summary.total_amount.toLocaleString("ko-KR")}원`}
+              icon={Receipt}
+              color="purple"
+            />
           </div>
 
           <Card>
@@ -93,7 +96,7 @@ export default async function ReportsPage({ searchParams }: Props) {
           </Card>
         </>
       ) : (
-        <p className="text-sm text-muted-foreground">해당 기간의 매출 데이터가 없습니다.</p>
+        <EmptyState icon={Receipt} title="해당 기간의 매출 데이터가 없습니다." />
       )}
     </>
   );

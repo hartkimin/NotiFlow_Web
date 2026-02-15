@@ -1,5 +1,4 @@
-import { PlusCircle } from "lucide-react";
-import { Users, UserCheck, ShieldCheck, Eye } from "lucide-react";
+import { PlusCircle, Users, UserCheck, ShieldCheck, Eye } from "lucide-react";
 
 import { getUsers } from "@/lib/queries/users";
 import { UserTable } from "@/components/user-list";

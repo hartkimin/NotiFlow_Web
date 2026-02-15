@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { markDeliveredAction } from "@/app/(dashboard)/deliveries/actions";
 import { toast } from "sonner";
 import type { Delivery } from "@/lib/types";
+import { EmptyState } from "@/components/empty-state";
+import { Truck } from "lucide-react";
 
 export function DeliveryList({ deliveries }: { deliveries: Delivery[] }) {
   async function handleDeliver(orderId: number) {
@@ -18,7 +20,7 @@ export function DeliveryList({ deliveries }: { deliveries: Delivery[] }) {
   }
 
   if (deliveries.length === 0) {
-    return <p className="text-sm text-muted-foreground py-8 text-center">오늘 배송 예정이 없습니다.</p>;
+    return <EmptyState icon={Truck} title="오늘 배송 예정이 없습니다." />;
   }
 
   return (

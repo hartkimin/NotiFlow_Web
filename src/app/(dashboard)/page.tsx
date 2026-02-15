@@ -25,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { StatCard } from "@/components/stat-card";
+import { EmptyState } from "@/components/empty-state";
 import { getDailyStats } from "@/lib/queries/stats";
 import { getOrders } from "@/lib/queries/orders";
 import { getTodayDeliveries } from "@/lib/queries/deliveries";
@@ -154,9 +155,7 @@ export default async function DashboardHome() {
           </CardHeader>
           <CardContent>
             {deliveriesRes.deliveries.length === 0 ? (
-              <div className="flex h-[100px] items-center justify-center rounded-md border border-dashed">
-                <p className="text-sm text-muted-foreground">오늘 배송 예정이 없습니다.</p>
-              </div>
+              <EmptyState icon={Truck} title="오늘 배송 예정이 없습니다." />
             ) : (
               // This can also be a table if more details are needed
               <div className="space-y-3">

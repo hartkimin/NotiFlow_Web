@@ -1,8 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
-function Skeleton({ className }: { className?: string }) {
-  return <div className={`bg-muted animate-pulse rounded ${className ?? ""}`} />;
-}
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardLoading() {
   return (
