@@ -1,0 +1,98 @@
+import { getSalesReport } from "@/lib/queries/reports";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ReportFilters } from "@/components/report-filters";
+import { SalesChart } from "@/components/sales-chart";
+
+interface Props {
+  searchParams: Promise<{ period?: string }>;
+}
+
+export default async function ReportsPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const now = new Date();
+  const period = params.period || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+
+  let report;
+  try {
+    report = await getSalesReport(period);
+  } catch {
+    report = null;
+  }
+
+  return (
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold">매출 리포트</h1>
+      <ReportFilters />
+
+      {report ? (
+        <>
+          <div className="grid gap-4 sm:grid-cols-4">
+            <Card>
+              <CardContent className="pt-4">
+                <p className="text-sm text-muted-foreground">주문 수</p>
+                <p className="text-2xl font-bold">{report.summary.total_orders}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-4">
+                <p className="text-sm text-muted-foreground">품목 수</p>
+                <p className="text-2xl font-bold">{report.summary.total_items}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-4">
+                <p className="text-sm text-muted-foreground">공급가액</p>
+                <p className="text-2xl font-bold">{report.summary.total_supply.toLocaleString("ko-KR")}원</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-4">
+                <p className="text-sm text-muted-foreground">합계</p>
+                <p className="text-2xl font-bold">{report.summary.total_amount.toLocaleString("ko-KR")}원</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">거래처별 매출</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <SalesChart rows={report.rows} />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-4">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>주문번호</TableHead>
+                    <TableHead>매출처</TableHead>
+                    <TableHead>품목</TableHead>
+                    <TableHead>수량</TableHead>
+                    <TableHead className="text-right">공급가액</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {report.rows.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{row.order_number}</TableCell>
+                      <TableCell>{row.hospital_name}</TableCell>
+                      <TableCell className="max-w-[200px] truncate">{row.product_name}</TableCell>
+                      <TableCell>{row.quantity}</TableCell>
+                      <TableCell className="text-right">{row.supply_amount.toLocaleString("ko-KR")}원</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </>
+      ) : (
+        <p className="text-sm text-muted-foreground">해당 기간의 매출 데이터가 없습니다.</p>
+      )}
+    </div>
+  );
+}
