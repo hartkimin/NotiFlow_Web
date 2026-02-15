@@ -14,7 +14,7 @@ export function ReportFilters() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const period = fd.get("period") as string;
-    router.push(`/dashboard/reports?period=${period}`);
+    router.push(`/reports?period=${period}`);
   }
 
   return (

@@ -34,13 +34,13 @@ export default async function CalendarPage({ searchParams }: Props) {
         <h1 className="text-lg font-semibold md:text-2xl">캘린더 ({month})</h1>
         <div className="ml-auto flex items-center gap-2">
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/dashboard/calendar?month=${prevMonth}`}>
+            <Link href={`/calendar?month=${prevMonth}`}>
               <ChevronLeft className="h-4 w-4" />
               이전 달
             </Link>
           </Button>
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/dashboard/calendar?month=${nextMonth}`}>
+            <Link href={`/calendar?month=${nextMonth}`}>
               다음 달
               <ChevronRight className="h-4 w-4" />
             </Link>

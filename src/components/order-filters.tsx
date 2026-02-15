@@ -19,7 +19,7 @@ export function OrderFilters() {
     if (from) params.set("from", from);
     if (to) params.set("to", to);
     if (status && status !== "all") params.set("status", status);
-    router.push(`/dashboard/orders?${params}`);
+    router.push(`/orders?${params}`);
   }
 
   return (

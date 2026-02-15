@@ -79,7 +79,7 @@ export function MessageFilters() {
     if (to) params.set("to", to);
     if (parse_status && parse_status !== "all") params.set("parse_status", parse_status);
     if (source_app && source_app !== "all") params.set("source_app", source_app);
-    router.push(`/dashboard/messages?${params}`);
+    router.push(`/messages?${params}`);
   }
 
   return (

@@ -105,3 +105,50 @@
     background: var(--secondary-foreground);
   }
 }
+
+/* ── Interactive enhancements ───────────────────── */
+@layer components {
+  /* Table row hover */
+  [data-slot="table"] tbody tr {
+    transition: background-color 150ms ease;
+  }
+  [data-slot="table"] tbody tr:hover {
+    background-color: hsl(var(--muted) / 0.5);
+  }
+
+  /* Card hover lift */
+  [data-slot="card"] {
+    transition: box-shadow 200ms ease, transform 200ms ease;
+  }
+  [data-slot="card"]:hover {
+    box-shadow: 0 4px 12px hsl(var(--foreground) / 0.06);
+  }
+
+  /* Button press feedback */
+  [data-slot="button"]:not(:disabled):active {
+    transform: scale(0.97);
+  }
+
+  /* Badge subtle pulse on hover */
+  [data-slot="badge"] {
+    transition: filter 150ms ease;
+  }
+  [data-slot="badge"]:hover {
+    filter: brightness(0.95);
+  }
+
+  /* Tab active indicator */
+  [role="tab"][aria-selected="true"] {
+    position: relative;
+  }
+  [role="tab"][aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background-color: hsl(var(--primary));
+    border-radius: 999px;
+  }
+}

@@ -118,7 +118,7 @@ export function OrderCalendar({ month, days, orders, messages }: OrderCalendarPr
 
   function navigateMonth(offset: number) {
     const target = offset > 0 ? addMonths(currentMonth, 1) : subMonths(currentMonth, 1);
-    router.push(`/dashboard/calendar?month=${format(target, "yyyy-MM")}`);
+    router.push(`/calendar?month=${format(target, "yyyy-MM")}`);
   }
 
   function navigateWeek(offset: number) {
@@ -127,7 +127,7 @@ export function OrderCalendar({ month, days, orders, messages }: OrderCalendarPr
     const targetMonth = format(target, "yyyy-MM");
     setWeekAnchor(format(target, "yyyy-MM-dd"));
     if (targetMonth !== month) {
-      router.push(`/dashboard/calendar?month=${targetMonth}`);
+      router.push(`/calendar?month=${targetMonth}`);
     }
   }
 
@@ -137,7 +137,7 @@ export function OrderCalendar({ month, days, orders, messages }: OrderCalendarPr
     const targetMonth = format(target, "yyyy-MM");
     setDayAnchor(format(target, "yyyy-MM-dd"));
     if (targetMonth !== month) {
-      router.push(`/dashboard/calendar?month=${targetMonth}`);
+      router.push(`/calendar?month=${targetMonth}`);
     }
   }
 
@@ -261,7 +261,7 @@ export function OrderCalendar({ month, days, orders, messages }: OrderCalendarPr
             setDayAnchor(today);
             setSelectedDate(null);
             if (todayMonth !== month) {
-              router.push(`/dashboard/calendar?month=${todayMonth}`);
+              router.push(`/calendar?month=${todayMonth}`);
             }
           }}
         >
