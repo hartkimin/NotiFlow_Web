@@ -9,8 +9,10 @@ export default async function KpisPage() {
   ]);
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">KPIS 유통추적 신고</h1>
+    <>
+      <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl">KPIS 유통추적 신고</h1>
+      </div>
 
       {overdue.count > 0 && (
         <Card className="border-destructive">
@@ -25,6 +27,6 @@ export default async function KpisPage() {
           <KpisTable reports={pending.reports} title="미신고 항목" />
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 }

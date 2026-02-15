@@ -21,8 +21,10 @@ export default async function ReportsPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold">매출 리포트</h1>
+    <>
+      <div className="flex items-center">
+        <h1 className="text-lg font-semibold md:text-2xl">매출 리포트</h1>
+      </div>
       <ReportFilters />
 
       {report ? (
@@ -93,6 +95,6 @@ export default async function ReportsPage({ searchParams }: Props) {
       ) : (
         <p className="text-sm text-muted-foreground">해당 기간의 매출 데이터가 없습니다.</p>
       )}
-    </div>
+    </>
   );
 }

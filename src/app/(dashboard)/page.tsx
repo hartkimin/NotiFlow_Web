@@ -71,24 +71,28 @@ export default async function DashboardHome() {
           value={`${stats.orders_created}건`}
           description={`메시지 ${stats.total_messages}건 수신`}
           icon={ClipboardList}
+          color="blue"
         />
         <StatCard
           title="파싱 성공률"
           value={`${stats.parse_success_rate}%`}
           description={`${stats.parse_success}/${stats.total_messages}건 성공`}
           icon={CheckCircle}
+          color="green"
         />
         <StatCard
           title="오늘 배송"
           value={`${deliveriesRes.count}건`}
           description="배송 예정"
           icon={Truck}
+          color="amber"
         />
         <StatCard
           title="KPIS 미신고"
           value={`${kpisRes.count}건`}
           description="신고 대기중"
           icon={Shield}
+          color="red"
         />
       </div>
       <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">

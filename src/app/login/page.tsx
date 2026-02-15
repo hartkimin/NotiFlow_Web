@@ -18,7 +18,7 @@ export default function LoginPage() {
             지금 경험해보세요.
           </div>
           <div className="text-sm">
-            &copy; 2024 NotiFlow. All rights reserved.
+            &copy; 2025 NotiFlow. All rights reserved.
           </div>
         </div>
       </div>

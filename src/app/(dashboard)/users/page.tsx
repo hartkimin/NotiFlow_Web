@@ -42,19 +42,22 @@ export default async function UsersPage() {
           title="전체 사용자"
           value={users.length}
           icon={Users}
+          color="blue"
           description={`비활성 ${users.length - activeCount}명 포함`}
         />
-        <StatCard title="활성 사용자" value={activeCount} icon={UserCheck} />
+        <StatCard title="활성 사용자" value={activeCount} icon={UserCheck} color="green" />
         <StatCard
           title="관리자"
           value={adminCount}
           icon={ShieldCheck}
+          color="purple"
           description="모든 기능 접근"
         />
         <StatCard
           title="뷰어"
           value={viewerCount}
           icon={Eye}
+          color="amber"
           description="조회 전용"
         />
       </div>
